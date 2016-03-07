@@ -2,9 +2,9 @@
 import sys
 
 
-if sys.version_info[0] < 3:
-    from urlparse import urlparse
-    from itertools import imap, izip
+if sys.version_info[0] < 3: #'2.7.3 (default, Apr 10 2012, 23:24:47) [MSC v.1500 64 bit (AMD64)]'
+    from urlparse import urlparse  #urlparse模块主要是把url拆分为6部分,并返回元组。
+    from itertools import imap, izip #imap接收邮件，
     from string import letters as ascii_letters
     try:
         from cStringIO import StringIO as BytesIO
@@ -77,5 +77,5 @@ except ImportError:
                 self.queue.append(item)
 
             def _get(self):
-                return self.queue.pop()
+                return self.queue.pop() #从列表中移除并返回最后一个对象(可选参数，对象的索引)
 
