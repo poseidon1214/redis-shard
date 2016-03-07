@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+#set和frozenset最本质的区别是前者是可变的、后者是不可变的
 SHARD_METHODS = frozenset(['restore',
                            'debug object',
                            'renamenx',
