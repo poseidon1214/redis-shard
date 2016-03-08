@@ -8,7 +8,7 @@
 """
 
 import zlib
-import bisect
+import bisect #bisect用于操作排序的数组
 from hashlib import md5, sha1
 
 from ._compat import xrange, b
@@ -51,7 +51,7 @@ class HashRing(object):
             self.ring[ring_key] = node
             self.sorted_keys.append(ring_key)
 
-        self.sorted_keys.sort()
+        self.sorted_keys.sort() #容器内排序
 
     def remove_node(self, node):
         """Removes `node` from the hash ring and its replicas.
@@ -60,7 +60,7 @@ class HashRing(object):
         for x in xrange(self.replicas):
             ring_key = self.hash_method(b("%s:%d" % (node, x)))
             self.ring.pop(ring_key)
-            self.sorted_keys.remove(ring_key)
+            self.sorted_keys.remove(ring_key) #会移除该值的第一个匹配项。
 
     def get_node(self, key):
         """Given a string key a corresponding node in the hash ring is returned.
@@ -77,14 +77,14 @@ class HashRing(object):
         If the hash ring is empty, (`None`, `None`) is returned.
         """
         if len(self.ring) == 0:
-            return [None, None]
+            return [None, None] 
         crc = self.hash_method(b(key))
         idx = bisect.bisect(self.sorted_keys, crc)
         # prevents out of range index
         idx = min(idx, (self.replicas * len(self.nodes)) - 1)
         return [self.ring[self.sorted_keys[idx]], idx]
 
-    def iter_nodes(self, key):
+    def iter_nodes(self, key): ## why?
         """Given a string key it returns the nodes as a generator that can hold the key.
         """
         if len(self.ring) == 0:
