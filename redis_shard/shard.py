@@ -40,6 +40,12 @@ class RedisShardAPI(object):
         self.connections = {}
         self.pool = None
         servers = format_servers(servers)
+        ##########################################################
+        #servers = [
+        #{'name':'node1','host':'127.0.0.1','port':10000,'db':0},
+        #{'name':'node2','host':'127.0.0.1','port':11000,'db':0},
+        #{'name':'node3','host':'127.0.0.1','port':12000,'db':0},
+        #]
         if sentinel:
             sentinel = Sentinel(sentinel['hosts'], socket_timeout=sentinel.get('socket_timeout', 1))
         for server_config in servers:
